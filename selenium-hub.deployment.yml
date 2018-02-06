@@ -1,0 +1,41 @@
+
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: selenium-hub
+  namespace: selenium
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: selenium
+        role: hub
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: hub
+        image: selenium/hub:3.8.1
+        ports:
+        - name: http
+          containerPort: 4444
+        livenessProbe:
+          httpGet:
+            path: /grid/
+            port: 4444
+            scheme: HTTP
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /grid/
+            port: 4444
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: .5
+            memory: 500M
+
+

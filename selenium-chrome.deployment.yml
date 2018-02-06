@@ -1,0 +1,38 @@
+
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: selenium-chrome
+  namespace: selenium
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: selenium
+        role: chrome
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: chrome
+        image: selenium/node-chrome:3.8.1
+        env:
+        - name: HUB_HOST
+          value: selenium-hub.selenium
+        resources:
+          requests:
+            cpu: 1
+            memory: 1G
+          limits:
+            cpu: 2
+            memory: 2G
+        volumeMounts:
+          - name: host-shared-mem
+            mountPath: /dev/shm
+
+      volumes:
+        - name: host-shared-mem
+          hostPath:
+            path: /dev/shm
+

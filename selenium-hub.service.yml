@@ -1,0 +1,15 @@
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium-hub
+  namespace: selenium
+spec:
+  ports:
+    - port: 4444
+      targetPort: http
+  selector:
+    app: selenium
+    role: hub
+
