@@ -20,6 +20,22 @@ spec:
         env:
         - name: HUB_HOST
           value: selenium-hub.selenium
+        ports:
+        - name: http
+          containerPort: 5555
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5555
+            scheme: HTTP
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5555
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
         resources:
           requests:
             cpu: 1

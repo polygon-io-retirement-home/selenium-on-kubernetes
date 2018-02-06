@@ -17,6 +17,22 @@ spec:
       containers:
       - name: chrome
         image: selenium/node-chrome:3.8.1
+        ports:
+        - name: http
+          containerPort: 5555
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5555
+            scheme: HTTP
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5555
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
         env:
         - name: HUB_HOST
           value: selenium-hub.selenium
@@ -30,6 +46,7 @@ spec:
         volumeMounts:
           - name: host-shared-mem
             mountPath: /dev/shm
+
 
       volumes:
         - name: host-shared-mem
