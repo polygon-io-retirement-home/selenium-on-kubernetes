@@ -26,6 +26,10 @@ These must be run in order
 
 Now you should have a hub node, and 1 chrome and 1 firefox node running.
 
+---
+
+## Scaling:
+
 If you need more nodes, you can scale them like so:
 
 ```bash
